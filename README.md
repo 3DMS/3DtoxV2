@@ -16,7 +16,7 @@ The 3Dtox V2 also comes with a air quality sensor capable os sensing PM1 micro p
 
 # Assembly documentation
 You can find the Assembly guides here:
-* French version: 
+* French version: http://doc.3dmodularsystems.com/3dtox-v2-guide-de-montage/
 * English version: 
 
 # Hardware compatibility:
