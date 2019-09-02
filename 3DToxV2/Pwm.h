@@ -26,6 +26,10 @@
 
 void InitializePwmFanController();
 void setPwmFrequency(int pin, int divisor);
+void setPin5and6PwmFrequency62500hz();
+void setPin5and6PwmFrequency7812hz();
 void setPin5and6PwmFrequency1Khz();
+void setPin5and6PwmFrequency244hz();
+void setPin5and6PwmFrequency61hz();
 void setPin5and6PwmDutyCycle(int percent);
 #endif

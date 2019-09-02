@@ -137,25 +137,30 @@ void ConfigureRegisters()
   //configure clock rate
   SPCR |= (1<<SPE)|(1<<MSTR)|(1<<SPR1);
   SPSR |= (1<<SPI2X);
-     // TCCR2B = (TCCR2B & 0b11111000) | 0x04;//0x03      32    980.39, 0x02      8     3921.16, default: 0x4
-    //set timer1 interrupt at 1Hz
-      TCCR1A = 0;// set entire TCCR1A register to 0
-      TCCR1B = 0;// same for TCCR1B
-      TCNT1  = 0;//initialize counter value to 0
-      // set compare match register for 1hz increments
-      OCR1A = 15624;// = (16*10^6) / (1*1024) - 1 (must be <65536)
-      // turn on CTC mode
-      TCCR1B |= (1 << WGM12);
-      // Set CS12 and CS10 bits for 1024 prescaler
-      TCCR1B |= (1 << CS12) | (1 << CS10);
-      // enable timer compare interrupt
-      TIMSK1 |= (1 << OCIE1A);
+
+  //set timer1 interrupt at 1Hz
+  TCCR1A = 0;   // set entire TCCR1A register to 0
+  TCCR1B = 0;   // same for TCCR1B
+  TCNT1  = 0;   //initialize counter value to 0
+
+  // set compare match register for 1hz increments
+  OCR1A = 15624;// = (16*10^6) / (1*1024) - 1 (must be <65536)
+  // turn on CTC mode
+  TCCR1B |= (1 << WGM12);
+  // Set CS12 and CS10 bits for 1024 prescaler
+  TCCR1B |= (1 << CS12) | (1 << CS10);
+  // enable timer compare interrupt
+  TIMSK1 |= (1 << OCIE1A);
 
   ///---------------------------------------------
-      EICRA |= (1 << ISC00) | (1 << ISC01);// set INT0 to trigger on ANY logic change
-      PCMSK0 |= (1 << PCINT0);
-      //EIMSK |= (1 << INT0) | (1 << INT1); // enable both INT0 and INT1 interrupts
-    sei();//enable interrupts
+  EICRA |= (1 << ISC00) | (1 << ISC01);// set INT0 to trigger on ANY logic change
+  PCMSK0 |= (1 << PCINT0);
+
+  // Don't change the PWM frequency inthat in that configuration
+  // It changes how the timer0 is behaving and the fan speed counter will be messed up
+  //setPin5and6PwmFrequency62500hz();
+
+  sei();//enable interrupts
 }
 
 // setup SD card reader
